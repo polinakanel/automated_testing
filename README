@@ -1,0 +1,60 @@
+The files implement the Newton-Raphson method for the system of linear equations and for the prespecified function classes.
+Tests were written with the python 2.7.5
+
+The newton.py contains:
+    (class) Newton : to initialize function f should be passed
+            solve - Return a root of f(x) = 0, using Newton's method, starting from initial guess x0
+            step - take a single step of a Newton method, starting from x
+            Usage example:
+            p = F.LogPolynomial([1, -2, -6])
+            solver = newton.Newton(p, tol=1.e-15, maxiter=100, r = 0.1)
+            root = solver.solve(-2.0)
+
+The functions.py contains:
+    (methods) ApproximateJacobian : Jacobian approximation
+    (class) Polynomial : Callable polynomial object.
+        Usage: to construct the polynomial p(x) = x^2 + 2x + 3, and evaluate p(5):
+        p = Polynomial([1, 2, 3])
+        p(5)
+    (class) LogPolynomial : Callable log polynomial object.
+        Usage: to construct the polynomial p(x) = log( x^2 + 2x + 3 ), and evaluate p(5):
+        p = Polynomial([1, 2, 3])
+        p(5)
+    (class) Polynomial2D : Callable two-dimentional polynomial object.
+        Usage: to construct the polynomial
+            p1(x) = 2*x1 + 3*x2 +1,
+            p2(x) = -2*x1 + x2
+        and evaluate p([1,0]):
+
+        p = Polynomial2D([[2, 3, 1],[-2, 1, 0]])
+        p([1,0])
+
+The newton.py contains:
+
+The test in the testFunctions.py:
+
+    testApproxJacobian1(self): test if the Jacobian is approximated correctly for the linear equation
+    testApproxJacobian2 : test if the Jacobian is approximated correctly for the 2D system of linear equations
+    testApproxJacobian3 : test if the Jacobian is approximated correctly for the 3D system of linear equations
+    testPolynomial : test if the polynomial function computed correctly
+    testPolynomial2D : test if the 2D system of polynomials computed correctly
+    testLogPolynomial : test if the 2D system of polynomials computed correctly
+    testAnalyticalJacobPolynomial : test the correctness of the analytical Jacobian for the Polynomial class against approximated value and against computed value
+    testAnalyticalJacobLogPolynomial : test the correctness of the analytical Jacobian for the Log Polynomial class against approximated value and against computed value
+    testAnalyticalJacobPolynomial2D : test the correctness of the analytical Jacobian for the 2D Polynomial class against approximated value and against computed value
+    testWrongInputLogPolynomial : test exception is raised if the point is out of the function domain
+
+
+The test in the testNewton.py:
+
+    testLinear  : test the solution for the linear equation
+    testLinear2 : test the solution for the 2D system of linear equations
+    testLinear3 : test the solution for the 3D system of linear equations
+    testStep    : test that the step of the method performs as it should
+    testConvergence : test if the error is raised once the maximum iteration number is reached
+    testLogPolynomialSolution : test if the solution is correct for the LogPolynomial class
+    testPolynomialSolution : test if the solution is correct for the Polynomial class
+    testPolynomial2DSolution : test if the solution is correct for the 2D Polynomial System class
+    testUseAnalyticalJacob : test that the analytic Jacobian is actually the one used by your root finder
+    testNoSolutions : test if the exception is raised for the functions with no roots
+    testOutOfRadius : test if the exception raised when the iteration goes out of the predefined radius
